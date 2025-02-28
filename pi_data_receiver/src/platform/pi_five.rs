@@ -4,7 +4,7 @@ use rusqlite::{params, Connection};
 use std::error::Error;
 use std::time::Duration;
 use socket2::{Socket, Domain, Type};
-use serialport::{SerialPort, SerialPortSettings};
+use serialport::SerialPort;
 
 pub struct PiFiveConnectionManager {
     usb_connected: bool,
