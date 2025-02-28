@@ -10,7 +10,8 @@ pub struct UsbConnection {
 
 impl UsbConnection {
     pub fn new(port_name: &str) -> Result<Self, Box<dyn std::error::Error>> {
-        let port = serialport::open(port_name)?;
+        // Using the builder pattern with a default baud rate of 9600
+        let port = serialport::new(port_name, 9600).open()?;
         Ok(UsbConnection { port })
     }
 
