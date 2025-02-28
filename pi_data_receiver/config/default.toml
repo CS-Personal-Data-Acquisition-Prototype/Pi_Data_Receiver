@@ -1,0 +1,12 @@
+[default]
+connection_type = "usb"
+usb_device_path = "/dev/ttyUSB0"
+wifi_ssid = "YourSSID"
+wifi_password = "YourPassword"
+data_receive_timeout = 5000
+retry_interval = 2000
+max_retries = 5
+
+[logging]
+log_level = "info"
+log_file = "pi_data_receiver.log"

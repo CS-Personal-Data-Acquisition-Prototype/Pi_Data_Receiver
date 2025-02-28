@@ -1,0 +1,17 @@
+# FILE: /pi_data_receiver/pi_data_receiver/config/pi_zero.toml
+[connection]
+type = "usb"
+timeout = 5000
+
+[usb]
+vendor_id = "0x1234"
+product_id = "0x5678"
+buffer_size = 1024
+
+[wifi]
+ssid = "Your_SSID"
+password = "Your_Password"
+retry_interval = 3000
+
+[database]
+path = "data_acquisition.db"

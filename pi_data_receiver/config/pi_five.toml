@@ -1,0 +1,23 @@
+# FILE: /pi_data_receiver/pi_data_receiver/config/pi_five.toml
+[connection]
+type = "wifi"
+timeout = 30
+
+[usb]
+enabled = true
+device = "/dev/ttyUSB0"
+baud_rate = 115200
+
+[wifi]
+ssid = "Your_SSID"
+password = "Your_Password"
+ip_address = "192.168.1.100"
+port = 7878
+
+[database]
+path = "data_acquisition.db"
+max_connections = 5
+
+[logging]
+level = "info"
+file = "logs/pi_five.log"
