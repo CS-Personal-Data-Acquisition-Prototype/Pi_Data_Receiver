@@ -1,6 +1,6 @@
 mod usb;
 mod wifi;
-mod manager;
+pub mod manager;
 
 pub fn init_connections() {
     // Initialize USB and Wi-Fi connections
