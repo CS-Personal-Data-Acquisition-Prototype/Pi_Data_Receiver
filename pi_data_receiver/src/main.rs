@@ -9,29 +9,25 @@ mod models;
 mod platform;
 
 fn main() -> Result<(), Box<dyn Error>> {
-    // Load configuration based on the platform
-    let platform_config = config::load_config()?;
+    // Determine which platform we're running on (e.g., "pi_zero", "pi_five")
+    // In a real app, you might detect this automatically
+    let platform_name = "pi_zero"; // or "pi_five"
+    
+    // Load configuration for the specific platform
+    let config = config::Config::load(platform_name)?;
     
     // Initialize the connection manager
-    let mut connection_manager = connection::manager::ConnectionManager::new(platform_config);
+    let mut connection_manager = connection::manager::ConnectionManager::new();
     
     println!("Starting data receiver...");
+    println!("USB Port: {}", config.usb.port);
+    println!("WiFi SSID: {}", config.wifi.ssid);
 
     loop {
-        // Attempt to receive data from the current connection
-        match connection_manager.receive_data() {
-            Ok(data) => {
-                // Process the received data (e.g., store in database)
-                database::store_data(data)?;
-            }
-            Err(e) => {
-                eprintln!("Error receiving data: {}", e);
-                // Attempt to switch connection if an error occurs
-                connection_manager.switch_connection()?;
-            }
-        }
-
-        // Sleep for a short duration to prevent busy waiting
+        // Check connections
+        connection_manager.check_connections()?;
+        
+        // Sleep to prevent busy waiting
         thread::sleep(Duration::from_millis(100));
     }
 }
