@@ -2,7 +2,7 @@ server_config.txt
 
 # Ignore configuration files
 config.ini
-src/config.rs
+
 
 # Ignore database files
 *.db
