@@ -1,5 +1,5 @@
-mod usb;
-mod wifi;
+pub mod usb;
+pub mod wifi;
 pub mod manager;
 
 pub fn init_connections() {

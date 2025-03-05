@@ -4,9 +4,16 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+# Dependencies for all platforms
 rusqlite = "0.26.0"
-serialport = "4.0.0"
 socket2 = "0.4.0"
-tokio = { version = "1", features = ["full"] }
 serde = { version = "1.0", features = ["derive"] }
 toml = "0.5.8"
+
+# Dependencies for Linux targets (Pis)
+[target.'cfg(target_os = "linux")'.dependencies]
+serialport = "4.0.0"
+
+# For Mac/ Windows development - include when not cross compiling
+[target.'cfg(not(cross_compiling))'.dependencies]
+tokio = { version = "1", features = ["full"] }

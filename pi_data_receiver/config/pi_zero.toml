@@ -1,17 +1,29 @@
 # FILE: /pi_data_receiver/pi_data_receiver/config/pi_zero.toml
-[connection]
-type = "usb"
-timeout = 5000
+[default]
+connection_type = "usb" 
+usb_device_path = "/dev/ttyUSB0"
+wifi_ssid = "Your_SSID"
+wifi_password = "Your_Password"
+data_receive_timeout = 5000
+retry_interval = 3000
+max_retries = 5
 
 [usb]
+port = "/dev/ttyUSB0"  # Add this field
 vendor_id = "0x1234"
 product_id = "0x5678"
 buffer_size = 1024
+baud_rate = 9600      # Add this if needed
 
 [wifi]
 ssid = "Your_SSID"
 password = "Your_Password"
 retry_interval = 3000
+ip_address = "192.168.1.100"  # Add this if needed
 
 [database]
 path = "data_acquisition.db"
+
+[logging]
+log_level = "info"
+log_file = "pi_data_receiver.log"

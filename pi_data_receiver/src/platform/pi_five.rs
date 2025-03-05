@@ -4,6 +4,9 @@ use rusqlite::{params, Connection};
 use std::error::Error;
 use std::time::Duration;
 use socket2::{Socket, Domain, Type};
+
+// Conditional import of serialport
+#[cfg(target_os = "linux")]
 use serialport::SerialPort;
 
 pub struct PiFiveConnectionManager {
@@ -27,14 +30,27 @@ impl PiFiveConnectionManager {
         Ok(())
     }
 
+    #[cfg(target_os = "linux")]
     fn check_usb_connection(&self) -> Result<bool, Box<dyn Error>> {
-        // Implement USB connection checking logic here
-        Ok(false) // Placeholder
+        // Real implementation for Linux/Pi
+        let ports = serialport::available_ports()?;
+        Ok(!ports.is_empty())
+    }
+
+    #[cfg(not(target_os = "linux"))]
+    fn check_usb_connection(&self) -> Result<bool, Box<dyn Error>> {
+        // Mock implementation for non-Linux platforms
+        println!("Mock Pi5: Checking USB connection");
+        Ok(true) // Always return true for development
     }
 
     fn check_wifi_connection(&self) -> Result<bool, Box<dyn Error>> {
-        // Implement Wi-Fi connection checking logic here
-        Ok(false) // Placeholder
+        // Implementation works for all platforms since it uses standard libraries
+        let socket = Socket::new(Domain::IPV4, Type::STREAM, None);
+        match socket {
+            Ok(_) => Ok(true),
+            Err(_) => Ok(false),
+        }
     }
 
     pub fn switch_connection(&mut self) -> Result<(), Box<dyn Error>> {

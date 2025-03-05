@@ -1,5 +1,24 @@
 use rusqlite::{params, Connection};
 use std::error::Error;
+use std::path::Path;
+
+pub fn get_db_connection(config: &crate::config::Config) -> Result<Connection, Box<dyn Error>> {
+    // Use the path from config 
+    let db_path = &config.database.path; 
+    
+    // Create directory if it doesn't exist
+    if let Some(parent) = Path::new(db_path).parent() {
+        std::fs::create_dir_all(parent)?;
+    }
+    
+    println!("Opening database at: {}", db_path);
+    let conn = Connection::open(db_path)?;
+    
+    // Initialize the database tables
+    init_db(&conn)?;
+    
+    Ok(conn)
+}
 
 pub fn init_db(conn: &Connection) -> Result<(), Box<dyn Error>> {
     conn.execute(
