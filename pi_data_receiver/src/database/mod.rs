@@ -46,6 +46,9 @@ pub fn init_db(conn: &Connection) -> Result<(), Box<dyn Error>> {
 }
 
 pub fn insert_sensor_data(conn: &Connection, session_id: Option<i32>, timestamp: &str, latitude: f64, longitude: f64, altitude: f64, accel_x: f64, accel_y: f64, accel_z: f64, gyro_x: f64, gyro_y: f64, gyro_z: f64, dac_1: f64, dac_2: f64, dac_3: f64, dac_4: f64) -> Result<(), Box<dyn Error>> {
+    println!("DEBUG: Inserting data with sid={:?}, ts={}", session_id, timestamp);
+    
+    // Make sure all parameters are being passed to the query
     conn.execute(
         "INSERT INTO sensor_data (
             sessionID, timestamp, latitude, longitude, altitude,
@@ -71,6 +74,8 @@ pub fn insert_sensor_data(conn: &Connection, session_id: Option<i32>, timestamp:
             dac_4,
         ],
     )?;
+    
+    println!("DEBUG: Insert completed successfully");
     Ok(())
 }
 
