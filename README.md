@@ -1,5 +1,3 @@
-# pi_data_receiver/pi_data_receiver/README.md
-
 # Pi Data Receiver
 
 This project is designed to allow a Raspberry Pi to receive data from USB and Wi-Fi connections. It is initially targeted for the Raspberry Pi Zero, with plans to adapt it for the Raspberry Pi 5 in the future.
@@ -13,6 +11,7 @@ This project is designed to allow a Raspberry Pi to receive data from USB and Wi
 
 ## Project Structure
 
+- `pi_data_receiver/`: Folder containing the following files.
 - `src/main.rs`: Entry point of the application.
 - `src/config.rs`: Handles configuration settings.
 - `src/connection/`: Manages USB and Wi-Fi connections.
