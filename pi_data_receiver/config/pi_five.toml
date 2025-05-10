@@ -5,8 +5,14 @@ timeout = 30
 
 [usb]
 enabled = true
-device = "/dev/ttyUSB0"
-baud_rate = 115200
+devices = [
+    # 9DOF
+    {device = "/dev/ttyUSB0", baud_rate = 115200},
+    # Force
+    {device = "/dev/ttyACM0", baud_rate = 250000},
+    # Potentiometers
+    {device = "/dev/ttyACM2", baud_rate = 115200}
+]
 
 [wifi]
 ssid = "Your_SSID"
